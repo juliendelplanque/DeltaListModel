@@ -70,3 +70,32 @@ DLMListTest >> testScenario2 [
 	self assertCollection: list selectedItems equals: #().
 	self assertCollection: list indexesOfVisibleSelectedItems equals: #().
 ]
+
+{ #category : #tests }
+DLMListTest >> testScenario3 [
+	| list |
+	list := DLMList new.
+	list originalItems: #(1 2 3 4).
+	
+	self assertCollection: list visibleItems equals: #(1 2 3 4).
+	self assertCollection: list selectedItems equals: #().
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #().
+	
+	list sort: [ :x :y | x > y ].
+	
+	self assertCollection: list visibleItems equals: #(4 3 2 1).
+	self assertCollection: list selectedItems equals: #().
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #().
+	
+	list select: #(1 3).
+	
+	self assertCollection: list visibleItems equals: #(4 3 2 1).
+	self assertCollection: list selectedItems equals: #(4 2). "Changing the items reset selectedIndexes."
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #(1 3).
+	
+	list sort: [ :x :y | x < y ].
+	
+	self assertCollection: list visibleItems equals: #(1 2 3 4).
+	self assertCollection: list selectedItems equals: #(2 4).
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #(2 4).
+]
