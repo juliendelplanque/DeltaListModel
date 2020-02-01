@@ -28,6 +28,13 @@ DLMListState >> filter: anObject [
 	filter := anObject
 ]
 
+{ #category : #accessing }
+DLMListState >> indexesOfVisibleSelectedItems [
+	^ self visibleWrappedItems
+		select: [ :objectWrapper | self selectedObjects includes: objectWrapper ]
+		thenCollect: [ :objectWrapper | self visibleWrappedItems indexOf: objectWrapper ]
+]
+
 { #category : #initialization }
 DLMListState >> initialize [
 	super initialize.

@@ -24,6 +24,16 @@ DLMList >> filter: filter [
 	self addDelta: (DLMFilter filter: filter)
 ]
 
+{ #category : #accessing }
+DLMList >> indexesOfVisibleSelectedItems [
+	| listState |
+	listState := DLMListState items: self originalItems.
+	^ (deltas
+		inject: listState
+		into: [ :visibleItemsBeingBuilt :delta |
+			delta executeOn: visibleItemsBeingBuilt ]) indexesOfVisibleSelectedItems
+]
+
 { #category : #initialization }
 DLMList >> initialize [
 	super initialize.
