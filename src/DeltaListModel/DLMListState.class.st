@@ -71,6 +71,15 @@ DLMListState >> selectedObjects: anObject [
 ]
 
 { #category : #accessing }
+DLMListState >> sortedItems [
+	^ self items
+			sort: [ :wraper1 :wraper2 |
+				self sorter
+					value: wraper1 wrappedObject
+					value: wraper2 wrappedObject ]
+]
+
+{ #category : #accessing }
 DLMListState >> sorter [
 	^ sorter
 ]
