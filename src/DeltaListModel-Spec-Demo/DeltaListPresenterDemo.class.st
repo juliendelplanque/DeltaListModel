@@ -53,14 +53,17 @@ DeltaListPresenterDemo >> initializePresenters [
 	deltaListPresenter
 		whenFilterAppliedDo: [ self updateListsShowingDeltaListProperties ];
 		whenSelectionChangedDo: [ self updateListsShowingDeltaListProperties ];
-		whenItemsChangedDo: [ self updateListsShowingDeltaListProperties ]
+		whenItemsChangedDo: [ self updateListsShowingDeltaListProperties ].
+		
+	self updateListsShowingDeltaListProperties
 ]
 
 { #category : #private }
 DeltaListPresenterDemo >> updateListsShowingDeltaListProperties [
 	visibleItemsListPresenter
 		items: deltaListPresenter deltaList visibleItems.
-	"selectedItemsListPresenter."
+	selectedItemsListPresenter
+		items: (deltaListPresenter deltaList outcomingState selectedObjects collect: #wrappedObject).
 	visibleSelectedItemsListPresenter
-		items: deltaListPresenter deltaList selectedItems
+		items: deltaListPresenter deltaList selectedItems.
 ]
