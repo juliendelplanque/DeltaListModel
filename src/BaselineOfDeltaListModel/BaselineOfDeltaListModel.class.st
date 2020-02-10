@@ -13,5 +13,7 @@ BaselineOfDeltaListModel >> baseline: spec [
 			"Packages"
 			spec
 				package: 'DeltaListModel';
-				package: 'DeltaListModel-Tests' with: [ spec requires: #('DeltaListModel') ] ]
+				package: 'DeltaListModel-Tests' with: [ spec requires: #('DeltaListModel') ];
+				package: 'DeltaListModel-Spec' with: [ spec requires: #('DeltaListModel') ];
+				package: 'DeltaListModel-Spec-Demo' with: [ spec requires: #('DeltaListModel-Spec') ] ]
 ]
