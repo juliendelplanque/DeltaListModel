@@ -8,6 +8,11 @@ Class {
 	#category : #'DeltaListModel-Core'
 }
 
+{ #category : #api }
+DLMList >> add: anObject at: index [
+	self addDelta: (DLMAddAtIndex item: anObject index: index)
+]
+
 { #category : #private }
 DLMList >> addDelta: aDelta [
 	"Adds aDelta to the delta list."
@@ -26,12 +31,7 @@ DLMList >> filter: filter [
 
 { #category : #accessing }
 DLMList >> indexesOfVisibleSelectedItems [
-	| listState |
-	listState := DLMListState items: self originalItems.
-	^ (deltas
-		inject: listState
-		into: [ :visibleItemsBeingBuilt :delta |
-			delta executeOn: visibleItemsBeingBuilt ]) indexesOfVisibleSelectedItems
+	^ self outcomingState indexesOfVisibleSelectedItems
 ]
 
 { #category : #initialization }
@@ -42,13 +42,29 @@ DLMList >> initialize [
 
 { #category : #accessing }
 DLMList >> originalItems [
-	"Items as they were provided initially to myself, without any delta applied."
-	^ originalItems
+	"A copy of original items as they were provided initially to myself, without any delta applied.
+	 We copy these items to avoid modifying them.
+	"
+	^ originalItems copy
 ]
 
 { #category : #api }
 DLMList >> originalItems: orderedCollectionOfObjects [
 	originalItems := orderedCollectionOfObjects collect: [ :object | DLMListItemWrapper wrap: object ]
+]
+
+{ #category : #accessing }
+DLMList >> outcomingState [
+	"State of the list once delta have been interpreted."
+	^ (deltas
+		inject: (DLMListState items: self originalItems)
+		into: [ :visibleItemsBeingBuilt :delta |
+			delta executeOn: visibleItemsBeingBuilt ])
+]
+
+{ #category : #api }
+DLMList >> remove: anObject [
+	self addDelta: (DLMRemove item: anObject)
 ]
 
 { #category : #api }
@@ -61,12 +77,7 @@ DLMList >> selectedItems [
 	"Return selected items as they are shown to the user.
 	 In practice, this the #visibleItems list for which non-selected.
 	"
-	| listState |
-	listState := DLMListState items: self originalItems.
-	^ (deltas
-		inject: listState
-		into: [ :visibleItemsBeingBuilt :delta |
-			delta executeOn: visibleItemsBeingBuilt ]) selectedItems
+	^ self outcomingState selectedItems
 ]
 
 { #category : #api }
@@ -80,6 +91,7 @@ DLMList >> visibleItems [
 	 That is to say #originalItems with the deltas applied except items selection.
 	"
 	| listState |
+	self flag: #TODO. "Use #outomingState"
 	listState := DLMListState items: self originalItems.
 	^ ((deltas reject: #isSelect)
 		inject: listState

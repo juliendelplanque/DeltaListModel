@@ -1,3 +1,12 @@
+"
+I maintain the state of a list.
+
+Basically, I store:
+- the items stored by the list.
+- the items that are selected in the list.
+- the filter allowing one to reduce visible items presented to the user.
+- the sorter allowing one to order visible items presented to the user.
+"
 Class {
 	#name : #DLMListState,
 	#superclass : #Object,
@@ -87,6 +96,11 @@ DLMListState >> sorter [
 { #category : #accessing }
 DLMListState >> sorter: anObject [
 	sorter := anObject
+]
+
+{ #category : #accessing }
+DLMListState >> unwrappedItems [
+	^ self items collect: #wrappedObject
 ]
 
 { #category : #accessing }

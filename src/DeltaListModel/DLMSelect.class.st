@@ -18,7 +18,7 @@ DLMSelect class >> selectedIndexes: selectedIndexes [
 { #category : #execution }
 DLMSelect >> executeOn: listState [
 	^ listState
-		selectedObjects: (listState sortedItems withIndexSelect: [ :wrapper :index | self selectedIndexes includes: index ]);
+		selectedObjects: (listState visibleWrappedItems withIndexSelect: [ :wrapper :index | self selectedIndexes includes: index ]);
 		yourself
 ]
 

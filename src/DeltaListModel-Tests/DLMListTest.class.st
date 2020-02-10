@@ -157,3 +157,32 @@ DLMListTest >> testScenario5 [
 	self assertCollection: list selectedItems equals: #(2 4).
 	self assertCollection: list indexesOfVisibleSelectedItems equals: #(2 4).
 ]
+
+{ #category : #tests }
+DLMListTest >> testScenario6 [
+	| list |
+	list := DLMList new.
+	list originalItems: #(1 2 3 4).
+	
+	self assertCollection: list visibleItems equals: #(1 2 3 4).
+	self assertCollection: list selectedItems equals: #().
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #().
+	
+	list filter: [ :x | x odd ].
+	
+	self assertCollection: list visibleItems equals: #(1 3).
+	self assertCollection: list selectedItems equals: #().
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #().
+	
+	list select: #(2).
+	
+	self assertCollection: list visibleItems equals: #(1 3).
+	self assertCollection: list selectedItems equals: #(3).
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #(2).
+	
+	list filter: [ :x | true ].
+	
+	self assertCollection: list visibleItems equals: #(1 2 3 4).
+	self assertCollection: list selectedItems equals: #(3).
+	self assertCollection: list indexesOfVisibleSelectedItems equals: #(3).
+]

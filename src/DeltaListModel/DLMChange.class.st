@@ -19,7 +19,7 @@ DLMChange class >> newItems: newItems [
 DLMChange >> executeOn: listState [
 	^ listState
 		items: (self newItems collect: [ :object | DLMListItemWrapper wrap: object ]);
-		selectedObjects: #();
+		selectedObjects: #(); "Behavior on items change is to reset selection. Else we need to do a diff of the old and new items which is too complicated..."
 		yourself
 ]
 
