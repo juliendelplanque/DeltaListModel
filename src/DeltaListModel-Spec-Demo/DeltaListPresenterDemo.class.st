@@ -5,7 +5,9 @@ Class {
 		'deltaListPresenter',
 		'visibleItemsListPresenter',
 		'selectedItemsListPresenter',
-		'visibleSelectedItemsListPresenter'
+		'visibleSelectedItemsListPresenter',
+		'ascendingSortRadioButton',
+		'descendingSortRadioButton'
 	],
 	#category : #'DeltaListModel-Spec-Demo'
 }
@@ -18,6 +20,10 @@ DeltaListPresenterDemo class >> defaultSpec [
 				add: 'DeltaListPresenter:'
 				withConstraints: [ :constraint | constraint height: self labelHeight ];
 				add: #deltaListPresenter;
+				add: #ascendingSortRadioButton
+				withConstraints: [ :constraint | constraint height: self labelHeight ];
+				add: #descendingSortRadioButton
+				withConstraints: [ :constraint | constraint height: self labelHeight ];
 				yourself);
 		add: (
 			SpBoxLayout newVertical
@@ -54,7 +60,19 @@ DeltaListPresenterDemo >> initializePresenters [
 		whenFilterAppliedDo: [ self updateListsShowingDeltaListProperties ];
 		whenSelectionChangedDo: [ self updateListsShowingDeltaListProperties ];
 		whenItemsChangedDo: [ self updateListsShowingDeltaListProperties ].
-		
+	
+	ascendingSortRadioButton := self newRadioButton.
+	ascendingSortRadioButton
+		label: 'Sort ascending';
+		whenActivatedDo: [ deltaListPresenter sort: [ :x :y | x < y ] ].
+	descendingSortRadioButton := self newRadioButton.
+	descendingSortRadioButton
+		label: 'Sort descending';
+		whenActivatedDo: [ deltaListPresenter sort: [ :x :y | x > y ] ].
+	ascendingSortRadioButton
+		associatedRadioButtons: { descendingSortRadioButton };
+		state: true.
+	
 	self updateListsShowingDeltaListProperties
 ]
 
@@ -65,5 +83,5 @@ DeltaListPresenterDemo >> updateListsShowingDeltaListProperties [
 	selectedItemsListPresenter
 		items: (deltaListPresenter deltaList outcomingState selectedObjects collect: #wrappedObject).
 	visibleSelectedItemsListPresenter
-		items: deltaListPresenter deltaList selectedItems.
+		items: deltaListPresenter deltaList selectedItems
 ]
