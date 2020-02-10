@@ -27,7 +27,7 @@ DeltaListPresenterDemo class >> defaultSpec [
 				add: 'Visible selected items:'
 				withConstraints: [ :constraint | constraint height: self labelHeight ];
 				add: #visibleSelectedItemsListPresenter;
-				add: 'Selected items:'
+				add: 'All selected items (including ones hidden by filter):'
 				withConstraints: [ :constraint | constraint height: self labelHeight ];
 				add: #selectedItemsListPresenter;
 				yourself );
