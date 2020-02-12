@@ -90,11 +90,5 @@ DLMList >> visibleItems [
 	"Return items as they are shown to the user.
 	 That is to say #originalItems with the deltas applied except items selection.
 	"
-	| listState |
-	self flag: #TODO. "Use #outcomingState"
-	listState := DLMListState items: self originalItems.
-	^ ((deltas reject: #isSelect)
-		inject: listState
-		into: [ :visibleItemsBeingBuilt :delta |
-			delta executeOn: visibleItemsBeingBuilt ]) visibleItems
+	^ self outcomingState visibleItems
 ]
