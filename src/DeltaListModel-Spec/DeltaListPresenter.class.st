@@ -18,7 +18,7 @@ DeltaListPresenter class >> defaultSpec [
 
 	^ SpBoxLayout newVertical
 		add: #listPresenter;
-		add: #searchTextInputPresenter withConstraints: [ :constraints | constraints height: self inputTextHeight ]
+		addLast: #searchTextInputPresenter expand: false
 ]
 
 { #category : #'instance creation' }
