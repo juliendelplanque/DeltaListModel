@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'originalItems',
-		'deltas'
+		'deltaStorage',
+		'listStateCache'
 	],
 	#category : #'DeltaListModel-Core'
 }
@@ -16,12 +17,19 @@ DLMList >> add: anObject at: index [
 { #category : #private }
 DLMList >> addDelta: aDelta [
 	"Adds aDelta to the delta list."
-	deltas add: aDelta
+	deltaStorage addDelta: aDelta.
+	listStateCache invalidate
 ]
 
 { #category : #api }
 DLMList >> change: newItems [
 	self addDelta: (DLMChange newItems: newItems)
+]
+
+{ #category : #accessing }
+DLMList >> computeOutcomingState [
+	"State of the list once delta have been interpreted."
+	^ deltaStorage outcomingStateFrom: self originalItems
 ]
 
 { #category : #api }
@@ -37,7 +45,8 @@ DLMList >> indexesOfVisibleSelectedItems [
 { #category : #initialization }
 DLMList >> initialize [
 	super initialize.
-	deltas := OrderedCollection new
+	deltaStorage := DLMNaiveDeltaStorage new.
+	listStateCache := DLMCache computationBlock: [ self computeOutcomingState ]
 ]
 
 { #category : #accessing }
@@ -56,10 +65,7 @@ DLMList >> originalItems: orderedCollectionOfObjects [
 { #category : #accessing }
 DLMList >> outcomingState [
 	"State of the list once delta have been interpreted."
-	^ (deltas
-		inject: (DLMListState items: self originalItems)
-		into: [ :visibleItemsBeingBuilt :delta |
-			delta executeOn: visibleItemsBeingBuilt ])
+	^ listStateCache cachedObject
 ]
 
 { #category : #api }
