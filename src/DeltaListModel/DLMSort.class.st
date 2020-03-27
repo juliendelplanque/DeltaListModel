@@ -15,6 +15,11 @@ DLMSort class >> sorter: sorter [
 		yourself
 ]
 
+{ #category : #'storage adding' }
+DLMSort >> beAddedToOptimizedStorage: anOptimizedDeltaStorage [
+	anOptimizedDeltaStorage sortDelta: self
+]
+
 { #category : #execution }
 DLMSort >> executeOn: listState [
 	^ listState

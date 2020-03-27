@@ -15,6 +15,11 @@ DLMSelect class >> selectedIndexes: selectedIndexes [
 		yourself
 ]
 
+{ #category : #'storage adding' }
+DLMSelect >> beAddedToOptimizedStorage: anOptimizedDeltaStorage [
+	anOptimizedDeltaStorage selectDelta: self
+]
+
 { #category : #execution }
 DLMSelect >> executeOn: listState [
 	^ listState

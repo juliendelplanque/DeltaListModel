@@ -15,6 +15,11 @@ DLMFilter class >> filter: filter [
 		yourself
 ]
 
+{ #category : #'storage adding' }
+DLMFilter >> beAddedToOptimizedStorage: anOptimizedDeltaStorage [
+	anOptimizedDeltaStorage filterDelta: self
+]
+
 { #category : #execution }
 DLMFilter >> executeOn: listState [
 	^ listState
