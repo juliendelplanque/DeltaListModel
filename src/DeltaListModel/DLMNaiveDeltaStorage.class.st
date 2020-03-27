@@ -1,3 +1,8 @@
+"
+I store deltas in a naive way, that is to say, I have a collection that stores all the deltas that ever came to me.
+
+When one asks for my outcoming state, I replay all the deltas to craft the list state.
+"
 Class {
 	#name : #DLMNaiveDeltaStorage,
 	#superclass : #DLMDeltaStorage,

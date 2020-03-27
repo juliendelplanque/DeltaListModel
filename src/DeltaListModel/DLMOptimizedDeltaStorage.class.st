@@ -1,3 +1,10 @@
+"
+I am an implementation of the delta storage that do not store multiple select/sort/filter deltas.
+I only keep the last one for these delta as each new delta of these kind discard the previous of the same kind.
+
+For example, if you get a filter delta and then another filter delta, only the last one is relevant to keep.
+Ideed, if you replay the two deltas to get the outcoming state, only the last one matters.
+"
 Class {
 	#name : #DLMOptimizedDeltaStorage,
 	#superclass : #DLMDeltaStorage,
