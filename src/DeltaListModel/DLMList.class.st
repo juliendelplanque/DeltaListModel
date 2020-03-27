@@ -32,6 +32,16 @@ DLMList >> computeOutcomingState [
 	^ deltaStorage outcomingStateFrom: self originalItems
 ]
 
+{ #category : #private }
+DLMList >> deltaStorage [
+	^ deltaStorage
+]
+
+{ #category : #private }
+DLMList >> deltaStorage: anObject [
+	deltaStorage := anObject
+]
+
 { #category : #api }
 DLMList >> filter: filter [
 	self addDelta: (DLMFilter filter: filter)
@@ -45,7 +55,7 @@ DLMList >> indexesOfVisibleSelectedItems [
 { #category : #initialization }
 DLMList >> initialize [
 	super initialize.
-	deltaStorage := DLMNaiveDeltaStorage new.
+	deltaStorage := DLMOptimizedDeltaStorage new.
 	listStateCache := DLMCache computationBlock: [ self computeOutcomingState ]
 ]
 
@@ -74,8 +84,8 @@ DLMList >> remove: anObject [
 ]
 
 { #category : #api }
-DLMList >> select: selectedItems [
-	self addDelta: (DLMSelect selectedIndexes: selectedItems)
+DLMList >> select: selectedIndexes [
+	self addDelta: (DLMSelectObjects selectedObjects:( selectedIndexes collect: [ :i | self visibleWrappedItems at: i ]))
 ]
 
 { #category : #accessing }
@@ -97,4 +107,9 @@ DLMList >> visibleItems [
 	 That is to say #originalItems with the deltas applied except items selection.
 	"
 	^ self outcomingState visibleItems
+]
+
+{ #category : #private }
+DLMList >> visibleWrappedItems [
+	^ self outcomingState visibleWrappedItems
 ]

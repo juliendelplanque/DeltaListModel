@@ -7,7 +7,7 @@ Class {
 { #category : #'storage adding' }
 DLMDelta >> beAddedToOptimizedStorage: anOptimizedDeltaStorage [
 	"Adds myself to anOptimizedDeltaStorage."
-	self subclassResponsibility
+	anOptimizedDeltaStorage privateAddDelta: self
 ]
 
 { #category : #execution }

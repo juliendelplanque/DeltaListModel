@@ -9,16 +9,15 @@ Class {
 
 { #category : #'instance creation' }
 DLMChange class >> newItems: newItems [
-	<generated>
 	^ self new
-		newItems: newItems;
+		newItems: (newItems collect: [ :object | DLMListItemWrapper wrap: object ]);
 		yourself
 ]
 
 { #category : #execution }
 DLMChange >> executeOn: listState [
 	^ listState
-		items: (self newItems collect: [ :object | DLMListItemWrapper wrap: object ]);
+		items: self newItems;
 		selectedObjects: #(); "Behavior on items change is to reset selection. Else we need to do a diff of the old and new items which is too complicated..."
 		yourself
 ]

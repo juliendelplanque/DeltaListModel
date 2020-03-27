@@ -10,9 +10,8 @@ Class {
 
 { #category : #'instance creation' }
 DLMAddAtIndex class >> item: item index: index [
-	<generated>
 	^ self new
-		item: item;
+		item: (DLMListItemWrapper wrap: item);
 		index: index;
 		yourself
 ]
@@ -20,7 +19,7 @@ DLMAddAtIndex class >> item: item index: index [
 { #category : #execution }
 DLMAddAtIndex >> executeOn: listState [
 	listState items
-		add: (DLMListItemWrapper wrap: self item) afterIndex: self index - 1.
+		add: self item afterIndex: self index - 1.
 	
 	^ listState
 ]

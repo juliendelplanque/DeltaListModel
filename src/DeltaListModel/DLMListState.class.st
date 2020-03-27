@@ -27,6 +27,11 @@ DLMListState class >> items: items [
 		yourself
 ]
 
+{ #category : #executing }
+DLMListState >> beExecutedBy: aDelta [
+	^ aDelta executeOn: self
+]
+
 { #category : #accessing }
 DLMListState >> filter [
 	^ filter
@@ -116,4 +121,9 @@ DLMListState >> visibleWrappedItems [
 				self sorter
 					value: wraper1 wrappedObject
 					value: wraper2 wrappedObject ]
+]
+
+{ #category : #executing }
+DLMListState >> ~> aDelta [
+	^ self beExecutedBy: aDelta
 ]

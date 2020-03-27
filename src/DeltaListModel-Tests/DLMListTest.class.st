@@ -7,10 +7,20 @@ Class {
 	#category : #'DeltaListModel-Tests-Core'
 }
 
+{ #category : #testing }
+DLMListTest class >> isAbstract [
+	^ self = DLMListTest
+]
+
+{ #category : #tests }
+DLMListTest >> newList [
+	^ self subclassResponsibility
+]
+
 { #category : #tests }
 DLMListTest >> testScenario1 [
 	| list |
-	list := DLMList new.
+	list := self newList.
 	list originalItems: #(1 2 3 4).
 	
 	self assertCollection: list visibleItems equals: #(1 2 3 4).
@@ -39,7 +49,7 @@ DLMListTest >> testScenario1 [
 { #category : #tests }
 DLMListTest >> testScenario2 [
 	| list |
-	list := DLMList new.
+	list := self newList.
 	list originalItems: #(1 2 3 4).
 	
 	self assertCollection: list visibleItems equals: #(1 2 3 4).
@@ -74,7 +84,7 @@ DLMListTest >> testScenario2 [
 { #category : #tests }
 DLMListTest >> testScenario3 [
 	| list |
-	list := DLMList new.
+	list := self newList.
 	list originalItems: #(1 2 3 4).
 	
 	self assertCollection: list visibleItems equals: #(1 2 3 4).
@@ -103,7 +113,7 @@ DLMListTest >> testScenario3 [
 { #category : #tests }
 DLMListTest >> testScenario4 [
 	| list |
-	list := DLMList new.
+	list := self newList.
 	list originalItems: #(1 2 3 4).
 	
 	self assertCollection: list visibleItems equals: #(1 2 3 4).
@@ -132,7 +142,7 @@ DLMListTest >> testScenario4 [
 { #category : #tests }
 DLMListTest >> testScenario5 [
 	| list |
-	list := DLMList new.
+	list := self newList.
 	list originalItems: #(1 2 3 4).
 	
 	self assertCollection: list visibleItems equals: #(1 2 3 4).
@@ -161,7 +171,7 @@ DLMListTest >> testScenario5 [
 { #category : #tests }
 DLMListTest >> testScenario6 [
 	| list |
-	list := DLMList new.
+	list := self newList.
 	list originalItems: #(1 2 3 4).
 	
 	self assertCollection: list visibleItems equals: #(1 2 3 4).

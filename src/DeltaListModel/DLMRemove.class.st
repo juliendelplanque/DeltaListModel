@@ -18,7 +18,7 @@ DLMRemove class >> item: item [
 { #category : #execution }
 DLMRemove >> executeOn: listState [
 	listState items
-		remove: (listState items detect: [ :wrapper | wrapper wrappedObject == self item ]).
+		remove: (listState items detect: [ :wrapper | wrapper = self item ]).
 	
 	^ listState
 ]

@@ -10,7 +10,6 @@ Class {
 { #category : #test }
 DLMRemoveTest >> testExecuteOn [
 	| delta filter sorter state |
-	delta := DLMRemove item: 4.
 	filter := [ :x | true ].
 	sorter := [ :x :y | x < y ].
 	state := DLMListState new
@@ -19,6 +18,7 @@ DLMRemoveTest >> testExecuteOn [
 					filter: filter;
 					sorter: sorter;
 					yourself.
+	delta := DLMRemove item: state items first.
 	
 	state selectedObjects: (state items last: 2).
 					
@@ -39,9 +39,9 @@ DLMRemoveTest >> testExecuteOn2 [
 					filter: filter;
 					sorter: sorter;
 					yourself.
-	state selectedObjects: (state items last: 2).			
+	state selectedObjects: (state items last: 2).
 		
-	delta := DLMRemove item: 5.
+	delta := DLMRemove item: state items second.
 					
 	delta executeOn: state.
 	self assertCollection: state unwrappedItems equals: #(4 6) asOrderedCollection.
