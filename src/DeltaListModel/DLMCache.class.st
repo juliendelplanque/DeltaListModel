@@ -1,3 +1,20 @@
+"
+I implement a cache simple mechanism.
+
+One can specify how to compute the object I store via #computationBlock: method.
+I will automatically recompute the object when my #cachedObject instance variable is nil.
+
+To invalidate myself (i.e. set my #cachedObject instance variable to nil), use my #invalidate method.
+
+Example:
+
+cache := DLMCache computationBlock: [ 1 second wait. 42 ].
+cache cachedObject. ""42"" ""This takes 1 second to compute.""
+cache cachedObject. ""42"" ""Instantly returned.""
+
+cache invalidate.
+cache cachedObject. ""42"" ""This takes 1 second to compute.""
+"
 Class {
 	#name : #DLMCache,
 	#superclass : #Object,
